@@ -44,4 +44,14 @@ countlist xs = accumArray (+) 0 (0, n) (zip xs (repeat 1))
 --               else head ([0..] \\ us)
 --   where (us, vs) = partition (< b) xs
 
--- minfrom
+minfree2 xs = minfrom 0 (length xs, xs)
+
+minfrom :: Nat -> (Int, [Nat]) -> Nat
+minfrom a (n, xs) | null xs            = a
+                  | length us == b - a = minfrom b (n - m, vs)
+                  | otherwise          = minfrom a (m, us)
+  where (us, vs) = partition (< b) xs
+        b        = a + 1 + n `div` 2
+        m        = length us
+
+ex3 = minfree2 [5, 8, 0, 4, 2, 3, 1]
