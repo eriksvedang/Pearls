@@ -27,9 +27,8 @@ minfree2 xs = search (checklist xs)
 
 ex2 = minfree2 [5, 10, 0, 4, 3, 2, 1]
 
--- QUESTION: The 'accumulator' function (first arg to accumArray) is
---           called for each item that exists in the alist, otherwise
---           just the 'initial value' (False in this case) is used?!
+-- Note: 'accumArray' can be used to combine several items in the association list that share the same key.
+--       The function passed as the first argument is used for this.
 
 countlist :: [Int] -> Array Int Int
 countlist xs = accumArray (+) 0 (0, n) (zip xs (repeat 1))
