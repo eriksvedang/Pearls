@@ -23,7 +23,9 @@ checklist xs = accumArray (||) False (0, n) assocList
                where n = length xs
                      assocList = (zip (filter (<= n) xs) (repeat True))
 
-ex2 = search (checklist [5, 10, 0, 4, 3, 2, 1])
+minfree2 xs = search (checklist xs)
+
+ex2 = minfree2 [5, 10, 0, 4, 3, 2, 1]
 
 -- QUESTION: The 'accumulator' function (first arg to accumArray) is
 --           called for each item that exists in the alist, otherwise
@@ -39,12 +41,7 @@ countlist xs = accumArray (+) 0 (0, n) (zip xs (repeat 1))
 -- as \\ (bs ++ cs) == (as \\ bs) \\ cs
 -- (as \\ bs) \\ cs == (as \\ cs) \\ bs
 
--- minfree2 xs = if null ([0 .. b - 1] \\ us)
---               then head ([b..] \\ vs)
---               else head ([0..] \\ us)
---   where (us, vs) = partition (< b) xs
-
-minfree2 xs = minfrom 0 (length xs, xs)
+minfree3 xs = minfrom 0 (length xs, xs)
 
 minfrom :: Nat -> (Int, [Nat]) -> Nat
 minfrom a (n, xs) | null xs            = a
@@ -54,4 +51,7 @@ minfrom a (n, xs) | null xs            = a
         b        = a + 1 + n `div` 2
         m        = length us
 
-ex3 = minfree2 [5, 8, 0, 4, 2, 3, 1]
+ex3 = minfree3 [5, 8, 0, 4, 2, 3, 1]
+
+pearl1TestData :: [Nat]
+pearl1TestData = [x | x <- [0..1000000], x /= 999987]
