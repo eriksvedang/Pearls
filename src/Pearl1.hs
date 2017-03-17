@@ -54,4 +54,4 @@ minfrom a (n, xs) | null xs            = a
 ex3 = minfree3 [5, 8, 0, 4, 2, 3, 1]
 
 pearl1TestData :: [Nat]
-pearl1TestData = [x | x <- [0..1000000], x /= 999987]
+pearl1TestData = [x | x <- [0..10000000], x /= 9999987]
