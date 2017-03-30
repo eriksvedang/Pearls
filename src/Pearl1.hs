@@ -1,6 +1,7 @@
 module Pearl1 where
 
 import Data.Array
+import Data.Array.ST
 import Data.List (partition)
 
 -- Simplest solution --
@@ -23,7 +24,16 @@ checklist xs = accumArray (||) False (0, n) assocList
                where n = length xs
                      assocList = (zip (filter (<= n) xs) (repeat True))
 
+checklist' :: [Int] -> Array Int Bool
+checklist' xs = runSTArray $ do
+  a <- newArray (0, n) False
+  sequence [writeArray a x True | x <- xs, x <= n]
+  return a
+  where n = length xs
+
 minfree2 xs = search (checklist xs)
+
+minfree2' xs = search (checklist' xs)
 
 ex2 = minfree2 [5, 10, 0, 4, 3, 2, 1]
 
@@ -59,4 +69,5 @@ pearl1 :: IO ()
 pearl1 = do
   --putStrLn ("minfree1: " ++ show (minfree1 pearl1TestData))
   putStrLn ("minfree2: " ++ show (minfree2 pearl1TestData))
+  putStrLn ("minfree2': " ++ show (minfree2' pearl1TestData))
   putStrLn ("minfree3: " ++ show (minfree3 pearl1TestData))
