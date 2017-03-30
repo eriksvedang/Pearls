@@ -3,6 +3,7 @@ module Pearl1 where
 import Data.Array
 import Data.Array.ST
 import Data.List (partition)
+import Criterion.Main
 
 -- Simplest solution --
 type Nat = Int
@@ -68,6 +69,12 @@ pearl1TestData = [x | x <- [0..1000000], x /= 999987]
 pearl1 :: IO ()
 pearl1 = do
   --putStrLn ("minfree1: " ++ show (minfree1 pearl1TestData))
-  putStrLn ("minfree2: " ++ show (minfree2 pearl1TestData))
-  putStrLn ("minfree2': " ++ show (minfree2' pearl1TestData))
-  putStrLn ("minfree3: " ++ show (minfree3 pearl1TestData))
+  -- putStrLn ("minfree2: " ++ show (minfree2 pearl1TestData))
+  -- putStrLn ("minfree2': " ++ show (minfree2' pearl1TestData))
+  -- putStrLn ("minfree3: " ++ show (minfree3 pearl1TestData))
+  defaultMain [
+    bgroup "pearl1" [ bench "minfree2"   $ whnf (\_ -> minfree2 pearl1TestData)  0   
+                    , bench "minfree2'"  $ whnf (\_ -> minfree2' pearl1TestData) 0 
+                    , bench "minfree3"   $ whnf (\_ -> minfree3 pearl1TestData)  0
+                    ]
+    ]
