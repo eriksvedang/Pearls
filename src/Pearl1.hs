@@ -54,3 +54,11 @@ ex3 = minfree3 [5, 8, 0, 4, 2, 3, 1]
 
 pearl1TestData :: [Nat]
 pearl1TestData = [x | x <- [0..10000000], x /= 9999987]
+
+pearl1 :: IO ()
+pearl1 = do
+  a
+  b
+
+a = putStrLn ("minfree2: " ++ show (minfree2 pearl1TestData))
+b = putStrLn ("minfree3: " ++ show (minfree3 pearl1TestData))
