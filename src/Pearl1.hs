@@ -43,9 +43,9 @@ countlist xs = accumArray (+) 0 (0, n) (zip xs (repeat 1))
 minfree3 xs = minfrom 0 (length xs, xs)
 
 minfrom :: Nat -> (Int, [Nat]) -> Nat
-minfrom a (n, xs) | null xs            = a
-                  | length us == b - a = minfrom b (n - m, vs)
-                  | otherwise          = minfrom a (m, us)
+minfrom a (n, xs) | n == 0     = a
+                  | m == b - a = minfrom b (n - m, vs)
+                  | otherwise  = minfrom a (m, us)
   where (us, vs) = partition (< b) xs
         b        = a + 1 + n `div` 2
         m        = length us
@@ -53,7 +53,7 @@ minfrom a (n, xs) | null xs            = a
 ex3 = minfree3 [5, 8, 0, 4, 2, 3, 1]
 
 pearl1TestData :: [Nat]
-pearl1TestData = [x | x <- [0..100000], x /= 99987]
+pearl1TestData = [x | x <- [0..1000000], x /= 999987]
 
 pearl1 :: IO ()
 pearl1 = do
