@@ -6,13 +6,13 @@ import Data.List (partition)
 -- Simplest solution --
 type Nat = Int
 
-minfree :: [Nat] -> Nat
-minfree xs = head ([0..] \\ xs)
+minfree1 :: [Nat] -> Nat
+minfree1 xs = head ([0..] \\ xs)
 
 (\\) :: Eq a => [a] -> [a] -> [a]
 us \\ vs = filter (`notElem` vs) us
 
-ex1 = minfree [5, 10, 0, 4, 3, 2, 1]
+ex1 = minfree1 [5, 10, 0, 4, 3, 2, 1]
 
 -- Array based solution --
 search :: Array Int Bool -> Int
@@ -53,12 +53,10 @@ minfrom a (n, xs) | null xs            = a
 ex3 = minfree3 [5, 8, 0, 4, 2, 3, 1]
 
 pearl1TestData :: [Nat]
-pearl1TestData = [x | x <- [0..10000000], x /= 9999987]
+pearl1TestData = [x | x <- [0..100000], x /= 99987]
 
 pearl1 :: IO ()
 pearl1 = do
-  a
-  b
-
-a = putStrLn ("minfree2: " ++ show (minfree2 pearl1TestData))
-b = putStrLn ("minfree3: " ++ show (minfree3 pearl1TestData))
+  --putStrLn ("minfree1: " ++ show (minfree1 pearl1TestData))
+  putStrLn ("minfree2: " ++ show (minfree2 pearl1TestData))
+  putStrLn ("minfree3: " ++ show (minfree3 pearl1TestData))
