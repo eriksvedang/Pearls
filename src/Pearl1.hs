@@ -63,11 +63,12 @@ minfrom a (n, xs) | n == 0     = a
 
 ex3 = minfree3 [5, 8, 0, 4, 2, 3, 1]
 
-pearl1TestData :: [Nat]
-pearl1TestData =
-  let n = 20000
-      skip = n - 2
+pearl1TestData :: Nat -> [Nat]
+pearl1TestData n =
+  let skip = n - 2
   in  [x | x <- [0..n], x /= skip]
+
+testFunc f n = f (pearl1TestData n)
 
 pearl1 :: IO ()
 pearl1 = do
@@ -76,12 +77,14 @@ pearl1 = do
   -- putStrLn ("minfree2': " ++ show (minfree2' pearl1TestData))
   -- putStrLn ("minfree3: " ++ show (minfree3 pearl1TestData))
 
+  let n = 9999999
+  
   defaultMain [
     bgroup "pearl1" [
-          bench "minfree1"   $ whnf (\_ -> minfree1 pearl1TestData)  0   
-        , bench "minfree2"   $ whnf (\_ -> minfree2 pearl1TestData)  0   
-        , bench "minfree2'"  $ whnf (\_ -> minfree2' pearl1TestData) 0 
-        , bench "minfree3"   $ whnf (\_ -> minfree3 pearl1TestData)  0
+        --bench "minfree1 (naïve / elegant)" $ whnf (testFunc minfree1) n -- <- SLOW!
+        bench "minfree2 (accumArray)" $ whnf (testFunc minfree2) n
+        , bench "minfree2' (STArray)" $ whnf (testFunc minfree2') n
+        , bench "minfree3 (divide & conquer)" $ whnf (testFunc minfree3) n
         ]
     ]
   
