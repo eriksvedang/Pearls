@@ -1,6 +1,7 @@
 module Main where
 
 import Pearl1
+import Pearl2
 import Criterion.Main
 
 -- -- The function we're benchmarking.
@@ -21,5 +22,5 @@ import Criterion.Main
 --   ]
   
 main :: IO ()
-main = pearl1
+main = pearl2
 
