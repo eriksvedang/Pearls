@@ -6,7 +6,7 @@ module Pearl2 where
 -- Members of C only know each other
 -- Find C!
 
-nrOfPeople = 4
+nrOfPeople = 20
 
 knows :: Integer -> Integer -> Bool
 knows x y = case (x, y) of
@@ -50,16 +50,25 @@ ccliques (p : ps) = map (p:) (filter (member p ps) css) ++
 cclique2 :: [Integer]
 cclique2 = (head . ccliques) [1..nrOfPeople]
 
--- 3. Fusion!
+-- 3. Linear Time Solution
+cclique3 :: [Integer]
+cclique3 = foldr op [] [1..nrOfPeople]
 
+op p cs | null cs = [p]
+        | not (p `knows` c) = [p]
+        | not (c `knows` p) = cs
+        | otherwise = p : cs
+        where c = head cs
+
+  
+-- 4. Fusion / Confusion
 subseqs' :: [a] -> ([a], [[a]])
 subseqs' = foldr step ([], [[]])
 
 step :: a -> ([a], [[a]]) -> ([a], [[a]])
 step x (xs, xss) = (x : xs, map (x:) xss ++ xss)
 
-cclique3 :: [Integer]
-cclique3 = let ps = [1..nrOfPeople]
+cclique4 :: [Integer]
+cclique4 = let ps = [1..nrOfPeople]
                f (ps, css) = head (filter (<§ ps) css)
            in (f . subseqs') ps
-  
