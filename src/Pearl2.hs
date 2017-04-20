@@ -17,6 +17,8 @@ knows x y = case (x, y) of
               (3, _) -> False -- diss!
               _      -> True  -- everyone else can know each other, they're still not part of the clique
 
+
+
 -- 1. Exponential Time Solution
 
 -- | Checks if 'cs' is a clique of celebreties in 'ps'.
@@ -36,6 +38,8 @@ cclique1 = let ps = [1..nrOfPeople]
                 []    -> Nothing
                 (x:_) -> Just x
 
+
+
 -- 2. Quadratic Time Solution
 
 nonmember p cs = and [p `knows` c && not (c `knows` p) | c <- cs]
@@ -50,7 +54,10 @@ ccliques (p : ps) = map (p:) (filter (member p ps) css) ++
 cclique2 :: [Integer]
 cclique2 = (head . ccliques) [1..nrOfPeople]
 
+
+
 -- 3. Linear Time Solution
+
 cclique3 :: [Integer]
 cclique3 = foldr op [] [1..nrOfPeople]
 
@@ -60,8 +67,10 @@ op p cs | null cs = [p]
         | otherwise = p : cs
         where c = head cs
 
-  
+
+
 -- 4. Fusion / Confusion
+
 subseqs' :: [a] -> ([a], [[a]])
 subseqs' = foldr step ([], [[]])
 
