@@ -88,40 +88,48 @@ cclique4 n = let ps = [1..n]
 
 pearl2 :: IO ()
 pearl2 = do
-  let n = 25  
   defaultMain [
     bgroup "pearl2" [
-        bench "cclique1" $ whnf cclique1 n,
-        bench "cclique2" $ whnf cclique2 n,
-        bench "cclique3" $ whnf cclique3 n,
-        bench "cclique4" $ whnf cclique4 n
+        bench "cclique1 20" $ whnf cclique1 20,
+        bench "cclique2 20" $ whnf cclique2 20,
+        bench "cclique3 20" $ whnf cclique3 20,
+        bench "cclique2 50" $ whnf cclique2 50,
+        bench "cclique3 50" $ whnf cclique3 50
+        --bench "cclique4" $ whnf cclique4 n
         ]
     ]
 
-{- benchmarking pearl2/cclique1
-   time                 2.529 s    (2.386 s .. 2.727 s)
-                        0.999 R²   (0.998 R² .. 1.000 R²)
-   mean                 2.492 s    (2.458 s .. 2.514 s)
-   std dev              33.65 ms   (0.0 s .. 38.83 ms)
-   variance introduced by outliers: 19% (moderately inflated)
-   
-   benchmarking pearl2/cclique2
-   time                 342.6 μs   (342.0 μs .. 343.1 μs)
-                        1.000 R²   (1.000 R² .. 1.000 R²)
-   mean                 343.0 μs   (342.6 μs .. 344.0 μs)
-   std dev              2.135 μs   (1.283 μs .. 3.786 μs)
-   
-   benchmarking pearl2/cclique3
-   time                 1.408 μs   (1.402 μs .. 1.418 μs)
-                        1.000 R²   (1.000 R² .. 1.000 R²)
-   mean                 1.406 μs   (1.404 μs .. 1.412 μs)
-   std dev              12.12 ns   (5.813 ns .. 19.08 ns)
-   
-   benchmarking pearl2/cclique4
-   time                 2.428 s    (1.378 s .. 2.973 s)
-                        0.979 R²   (0.937 R² .. NaN R²)
-   mean                 2.483 s    (2.327 s .. 2.589 s)
-   std dev              158.3 ms   (0.0 s .. 182.8 ms)
-   variance introduced by outliers: 19% (moderately inflated)
-   
-   stack exec Pearls  89.08s user 3.64s system 99% cpu 1:32.90 total -}
+{-
+benchmarking pearl2/cclique1 20
+time                 65.81 ms   (61.33 ms .. 69.32 ms)
+                     0.995 R²   (0.991 R² .. 0.999 R²)
+mean                 68.43 ms   (66.54 ms .. 73.34 ms)
+std dev              4.974 ms   (1.455 ms .. 8.165 ms)
+variance introduced by outliers: 17% (moderately inflated)
+
+benchmarking pearl2/cclique2 20
+time                 151.8 μs   (150.4 μs .. 153.6 μs)
+                     0.999 R²   (0.998 R² .. 1.000 R²)
+mean                 150.8 μs   (150.0 μs .. 152.5 μs)
+std dev              3.640 μs   (2.180 μs .. 5.920 μs)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking pearl2/cclique3 20
+time                 1.076 μs   (1.064 μs .. 1.088 μs)
+                     0.999 R²   (0.999 R² .. 1.000 R²)
+mean                 1.060 μs   (1.053 μs .. 1.070 μs)
+std dev              28.21 ns   (21.11 ns .. 40.29 ns)
+variance introduced by outliers: 35% (moderately inflated)
+
+benchmarking pearl2/cclique2 50
+time                 5.404 ms   (5.342 ms .. 5.469 ms)
+                     0.999 R²   (0.999 R² .. 1.000 R²)
+mean                 5.406 ms   (5.382 ms .. 5.432 ms)
+std dev              78.44 μs   (63.77 μs .. 98.68 μs)
+
+benchmarking pearl2/cclique3 50
+time                 2.734 μs   (2.726 μs .. 2.744 μs)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 2.733 μs   (2.723 μs .. 2.742 μs)
+std dev              30.95 ns   (25.35 ns .. 39.40 ns)
+-}
